@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FitBuddy | Your Plan</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/">FitBuddy<span>AI</span></a>
+  <a href="/view-all-users" class="nav-link">Admin View</a>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow">YOUR PERSONALIZED PLAN</p>
+      <h1>{{ user.name }}, here is your FitBuddy plan.</h1>
+    </div>
+    <a class="btn secondary" href="/">Create another</a>
+  </div>
+
+  {% if message %}
+  <div class="success">{{ message }}</div>
+  {% endif %}
+
+  <section class="profile-grid">
+    <div class="mini-card"><strong>User ID</strong><span>{{ user.user_id }}</span></div>
+    <div class="mini-card"><strong>Age</strong><span>{{ user.age }}</span></div>
+    <div class="mini-card"><strong>Weight</strong><span>{{ user.weight }} kg</span></div>
+    <div class="mini-card"><strong>Goal</strong><span>{{ user.goal }}</span></div>
+    <div class="mini-card"><strong>Intensity</strong><span>{{ user.intensity }}</span></div>
+    <div class="mini-card"><strong>Experience</strong><span>{{ user.experience }}</span></div>
+  </section>
+
+  <section class="content-grid">
+    <article class="card plan-card">
+      <div class="section-title">
+        <h2>{% if updated %}Updated 7-Day Workout Plan{% else %}7-Day Workout Plan{% endif %}</h2>
+        <span class="badge">Gemini</span>
+      </div>
+      <pre class="plan">{{ workout_plan }}</pre>
+    </article>
+
+    <aside class="card tip-card">
+      <h2>Nutrition / Recovery Tip</h2>
+      <p>{{ nutrition_tip }}</p>
+      <hr>
+      <h3>Want changes?</h3>
+      <p class="muted">Examples: “More cardio”, “Add two rest days”, or “Make workouts easier.”</p>
+      <form action="/submit-feedback" method="post">
+        <input type="hidden" name="user_id" value="{{ user.user_id }}">
+        <textarea name="feedback" required maxlength="2000" placeholder="Tell FitBuddy what you want to change..."></textarea>
+        <button class="btn primary full" type="submit">Update Plan with AI</button>
+      </form>
+    </aside>
+  </section>
+</main>
+</body>
+</html>

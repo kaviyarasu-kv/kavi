@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FitBuddy | Admin Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/">FitBuddy<span>AI</span></a>
+  <a href="/" class="nav-link">Home</a>
+</header>
+
+<main class="container">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow">ADMIN / COACH DASHBOARD</p>
+      <h1>All registered users</h1>
+    </div>
+  </div>
+
+  {% if not rows %}
+    <div class="card empty">No users yet. Generate a plan from the home page.</div>
+  {% endif %}
+
+  {% for row in rows %}
+  <section class="card admin-card">
+    <div class="admin-header">
+      <div>
+        <h2>{{ row.user.name }}</h2>
+        <p class="muted">ID: {{ row.user.user_id }} · {{ row.user.age }} years · {{ row.user.weight }} kg · {{ row.user.goal }} · {{ row.user.intensity }}</p>
+      </div>
+    </div>
+
+    {% if row.plan %}
+      <h3>Original plan</h3>
+      <pre class="plan compact">{{ row.plan.original_plan }}</pre>
+
+      {% if row.plan.updated_plan %}
+        <h3>Updated plan</h3>
+        <pre class="plan compact">{{ row.plan.updated_plan }}</pre>
+        <p><strong>Feedback:</strong> {{ row.plan.feedback }}</p>
+      {% endif %}
+    {% else %}
+      <p>No plan stored.</p>
+    {% endif %}
+  </section>
+  {% endfor %}
+</main>
+</body>
+</html>
