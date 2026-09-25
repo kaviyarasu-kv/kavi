@@ -130,6 +130,18 @@ Open:
 - API docs: http://127.0.0.1:8000/docs
 - Admin: http://127.0.0.1:8000/view-all-users
 
+For phone access on the same Wi‑Fi network, run the app with a network bind:
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+Then open the machine's LAN IP in the browser, for example:
+
+```text
+http://10.58.192.124:8000
+```
+
 If `ADMIN_TOKEN` is set, open:
 
 ```text
